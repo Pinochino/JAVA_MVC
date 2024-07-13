@@ -8,9 +8,9 @@
 <body>
 <div class="container">
     <h3 class="text-center">Danh sach sinh vien</h3>
-    <a th:href="@{/api/create}" class="btn btn-success btn-sm mb4">Thêm mới</a>
+    <a th:href="@{/api/save}" class="btn btn-success btn-sm mb4">Thêm mới</a>
     <hr>
-    
+
     <table class="table table-bordered table-striped">
         <thead class="table-info">
         <tr>
@@ -19,6 +19,7 @@
             <td>GMAIL</td>
             <td>PASSWORD</td>
             <td>NUMBERPHONE</td>
+            <td>PROCESS</td>
         </tr>
         </thead>
         <tbody>
@@ -28,6 +29,19 @@
             <td th:text="${student.gmail}"></td>
             <td th:text="${student.password}"></td>
             <td th:text="${student.numberphone}"></td>
+            <td>
+                <a th:href="@{/api/update(id=${student.id})}"
+                class="btn btn-outline-danger btn-sm"
+                >
+                    Chỉnh sửa
+                </a>
+              <a th:href="@{/api/delete(id=${student.id})}"
+                 class="btn btn-danger btn-sm"
+                 onclick="return confirm('Bạn có chắc chắn xóa sinh viên này không?');"
+              >
+                  Xóa
+              </a>
+          </td>
         </tr>
         </tbody>
     </table>

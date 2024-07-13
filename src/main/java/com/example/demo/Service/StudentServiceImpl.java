@@ -4,6 +4,8 @@ import com.example.demo.Dao.StudentRepository;
 import com.example.demo.Entity.Student;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,11 +31,13 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    @Transactional
     public Student save(Student student) {
         return studentRepository.save(student);
     }
 
     @Override
+    @Transactional
     public Student saveAndFlush(Student student) {
         return studentRepository.saveAndFlush(student);
     }
@@ -45,7 +49,10 @@ public class StudentServiceImpl implements StudentService {
 
         s1.setFullname(student.getFullname());
         s1.setGmail(student.getGmail());
-        s1.setPassword(student.getPassword());
+
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
+        s1.setPassword(passwordEncoder.encode(student.getPassword()));
+
         s1.setNumberphone(student.getNumberphone());
 
        return studentRepository.save(s1);
